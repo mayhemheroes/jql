@@ -7,16 +7,16 @@ WORKDIR /src
 
 RUN echo building instrumented harnesses && \
     bash -c "pushd fuzz && cargo +nightly -Z sparse-registry fuzz build && popd" && \
-    mv fuzz/target/x86_64-unknown-linux-gnu/release/selectors_parser /selectors_parser && \
+    mv fuzz/target/x86_64-unknown-linux-gnu/release/fuzz_parser /fuzz_parser && \
     echo done
 
 RUN echo building non-instrumented harnesses && \
     export RUSTFLAGS="--cfg fuzzing -Clink-dead-code -Cdebug-assertions -C codegen-units=1" && \
     bash -c "pushd fuzz && cargo +nightly -Z sparse-registry build --release && popd" && \
-    mv fuzz/target/release/selectors_parser /selectors_parser_no_inst && \
+    mv fuzz/target/release/fuzz_parser /fuzz_parser_no_inst && \
     echo done
 
 # Package Stage
 FROM rustlang/rust:nightly
 
-COPY --from=builder /selectors_parser /selectors_parser_no_inst /
+COPY --from=builder /fuzz_parser /fuzz_parser_no_inst /

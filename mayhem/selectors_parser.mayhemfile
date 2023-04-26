@@ -1,7 +1,0 @@
-project: jql
-target: selectors-parser
-
-cmds:
-  - cmd: /selectors_parser
-  - cmd: /selectors_parser_no_inst @@
-    libfuzzer: false

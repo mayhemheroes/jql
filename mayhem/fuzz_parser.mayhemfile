@@ -1,0 +1,7 @@
+project: jql
+target: fuzz-parser
+
+cmds:
+  - cmd: /fuzz_parser
+  - cmd: /fuzz_parser_no_inst @@
+    libfuzzer: false
