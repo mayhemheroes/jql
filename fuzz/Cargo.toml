@@ -1,19 +1,18 @@
 [package]
-name = "jql-fuzz"
-version = "0.0.0"
+name = "jql-parser-fuzz"
 publish = false
-edition = "2021"
+version = "0.0.0"
 
 [package.metadata]
 cargo-fuzz = true
 
 [dependencies]
-libfuzzer-sys = "0.4"
+libfuzzer-sys = "0.4.6"
 
-[dependencies.jql]
-path = ".."
+[dependencies.jql-parser]
+path = "../crates/jql-parser"
 
-# Prevent this from interfering with workspaces
+# Prevent this from interfering with workspaces.
 [workspace]
 members = ["."]
 
@@ -21,7 +20,7 @@ members = ["."]
 debug = 1
 
 [[bin]]
-name = "selectors_parser"
-path = "fuzz_targets/selectors_parser.rs"
-test = false
 doc = false
+name = "fuzz_parser"
+path = "fuzz_targets/fuzz_parser.rs"
+test = false
